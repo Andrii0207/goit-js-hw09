@@ -20,14 +20,14 @@ function onClickStartBtn() {
     body.style.backgroundColor = `${getRandomHexColor()}`;
   }, 1000);
   isActive = true;
-  console.log('Поехали!');
+  console.log('click on START!');
 }
 
 function onClickStopBtn() {
   if (!isActive) {
     return;
   }
-  console.log('Стоп!');
+  console.log('click on STOP!');
   clearInterval(timerId);
   isActive = false;
 }
