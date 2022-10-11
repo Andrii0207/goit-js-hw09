@@ -14,33 +14,29 @@ function createPromise(position, delay) {
         // Reject
         reject({ position, delay });
       }
-    });
-  }, delay);
-}
-
-function createPromises(evt) {
-  const { time, step, amount } = evt.target;
-
-  for (let i = 1; i <= amount; i += 1) {
-    createPromise({ step, delay })
-      .then(() => console.log(`✅  Fulfilled promise`))
-      .catch(() => console.log(`❌ Rejected promise`));
-  }
+    }, delay);
+  });
 }
 
 function onFormSubmit(evt) {
   evt.preventDefault();
-  console.log('submit on button CreatePromise');
-
   const { delay, step, amount } = evt.target;
 
   const delayTime = Number(delay.value);
   const stepTime = Number(step.value);
   const countPromises = Number(amount.value);
 
-  console.log(delayTime);
-  console.log(stepTime);
-  console.log(countPromises);
+  createPromises(delayTime, stepTime, countPromises);
+}
 
-  createPromises({ delayTime, stepTime, countPromises });
+function createPromises(delay, stepTime, amount) {
+  console.log({ delay, stepTime, amount });
+
+  for (let i = 1; i <= amount; i += 1) {
+    let time = delay + stepTime * (i - 1);
+
+    createPromise({ i, time })
+      .then(() => Notiflix.Notify.success(`✅ Fulfilled promise ${i} in ${time}ms`))
+      .catch(() => Notiflix.Notify.success(`❌ Rejected promise ${i} in ${time}ms`));
+  }
 }
