@@ -26,16 +26,14 @@ function onFormSubmit(evt) {
   const stepTime = Number(step.value);
   const countPromises = Number(amount.value);
 
-  createPromises(delayTime, stepTime, countPromises);
+  buildPromises(delayTime, stepTime, countPromises);
 }
 
-function createPromises(delay, stepTime, amount) {
-  console.log({ delay, stepTime, amount });
-
+function buildPromises(delayTime, stepTime, amount) {
   for (let i = 1; i <= amount; i += 1) {
-    let time = delay + stepTime * (i - 1);
+    let time = delayTime + stepTime * (i - 1);
 
-    createPromise({ i, time })
+    createPromise(i, time)
       .then(() => Notiflix.Notify.success(`✅ Fulfilled promise ${i} in ${time}ms`))
       .catch(() => Notiflix.Notify.success(`❌ Rejected promise ${i} in ${time}ms`));
   }
